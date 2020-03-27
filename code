@@ -1,0 +1,46 @@
+library(tidyverse)
+install.packages("plotly")
+library(plotly)
+library(gapminder)
+
+usopen_mens1 <- read.csv("mens_rallys.csv")
+
+ggplot(usopen_mens1, aes(x = Point.winner, y = Rally.Count, group = 1))+
+  geom_line(linetype = "dashed",
+            colour = "blue") +
+  geom_text(aes(label=Score),hjust=0, vjust=0, check_overlap = TRUE) +
+  geom_point(aes(colour = "yellow"))+
+  labs(title="Us Open 2019: Men's longest rallys",x="Point winner", y = "Rally count")+
+  theme_classic()
+
+ggplot(Womens_rallys, aes(x = Point_winner, y = Rally_count, group = 1))+
+  geom_line(linetype = "dashed",
+            colour = "blue") +
+  geom_text(aes(label=Score),hjust=0, vjust=0, check_overlap = TRUE) +
+  geom_point(aes(colour = "yellow"))+
+  labs(title="Us Open 2019: Women's longest rallys",x="Point winner", y = "Rally count")+
+  theme_classic()
+
+# plotly graphs - interactive
+
+# mens
+
+p <- ggplot(data = usopen_mens1, aes(x = Point_winner, y = Rally_count, label = Players)) +
+  geom_point(color = "blue", size = 4) +
+  labs(title="Us Open 2019: Men's longest rallys", x="Point winner", y = "Rally count")
+
+p <- ggplotly(p)
+
+p
+
+fig
+
+# womens 
+
+q <- ggplot(data = Womens_rallys, aes(x = Point_winner, y = Rally_count, label = Players)) +
+  geom_point(color = "blue", size = 4) +
+  labs(title="Us Open 2019: Women's longest rallys", x="Point winner", y = "Rally count")
+
+q <- ggplotly(q)
+
+q
